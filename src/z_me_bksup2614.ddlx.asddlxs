@@ -1,0 +1,48 @@
+@Metadata.layer: #CORE
+
+@Search.searchable: true
+@UI: {
+  headerInfo: {
+    typeName: 'Booking Supplement',
+    typeNamePlural: 'Booking Supplements',
+    title: {
+        type: #STANDARD,
+        label: 'Booking Supplement',
+        value: 'BookingSupplementID' }
+              }
+     }
+annotate entity Z_C_BKSUP2914
+    with 
+{
+   @UI.facet: [{ id: 'BookingSupplement',
+                  purpose: #STANDARD,
+                  type: #IDENTIFICATION_REFERENCE ,
+                  label: 'Booking Supplement',
+                  position: 10 } ]
+  @Search.defaultSearchElement: true
+  TravelId;
+
+  @Search.defaultSearchElement: true
+  BookingId;
+
+  @UI: { lineItem: [ { position: 10, importance: #HIGH } ],
+  identification: [ { position: 10 } ] }
+  BookingSupplementId;
+
+  @UI: { lineItem: [ { position: 20, importance: #HIGH } ],
+  identification: [ { position: 20 } ] }
+  @Consumption.valueHelpDefinition: [ {entity: {name: '/DMO/I_SUPPLEMENT', element: 'SupplementID' } ,
+  additionalBinding: [ { localElement: 'Price', element: 'Price' },
+  { localElement: 'CurrencyCode', element: 'CurrencyCode' }] }]
+  SupplementId;
+
+  @UI: { lineItem: [ { position: 30, importance: #HIGH } ],
+  identification: [ { position: 30 } ] }
+  Price;
+
+  @Consumption.valueHelpDefinition: [{entity: {name: 'Z_C_BKSUP2914', element: 'CurrencyCode' }}]
+  CurrencyCode;
+
+  @UI.hidden: true
+  LastChangedAt;
+}

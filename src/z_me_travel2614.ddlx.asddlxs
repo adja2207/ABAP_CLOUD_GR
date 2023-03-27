@@ -1,0 +1,82 @@
+@Metadata.layer: #CORE
+@Search.searchable: true
+@UI.headerInfo: {
+    typeName: 'Travel',
+    typeNamePlural: 'Travels',
+    title: {
+        type: #STANDARD,
+        value: 'TravelID'
+    }
+}
+annotate entity Z_C_TRAVEL2914 with 
+{
+@UI.facet: [{ id: 'Travel',
+              purpose: #STANDARD,
+              type: #IDENTIFICATION_REFERENCE ,
+              label: 'Travel',
+              position: 10 } ,
+              { id : 'Booking',
+               purpose: #STANDARD,
+               type: #LINEITEM_REFERENCE,
+               label: 'Booking',
+               position: 20,targetElement: '_Booking' }]    
+ @UI: {
+  lineItem: [{
+      position: 10,
+      importance: #HIGH }],
+  identification: [{ position: 10, label: 'Travel ID ' }]}
+  @Search.defaultSearchElement: true
+  TravelId;
+  @UI: {
+          lineItem: [ { position: 20, importance: #HIGH } ],
+          identification: [ { position: 20 } ],
+          selectionField: [ { position: 20 } ] }
+  @Consumption.valueHelpDefinition: [{ entity : {name: '/DMO/I_Agency', element: 'AgencyID' } }]
+  AgencyId;
+  @UI: {
+  lineItem: [ { position: 30, importance: #HIGH } ],
+  identification: [ { position: 30 } ],
+  selectionField: [ { position: 30 } ] }
+  @Consumption.valueHelpDefinition: [{ entity : {name: '/DMO/I_Customer', element: 'CustomerID' } }]
+  @Search.defaultSearchElement: true
+  CustomerId;
+
+  @UI: {
+            lineItem: [ { position: 40, importance: #MEDIUM } ],
+            identification: [ { position: 40 } ] }
+  BeginDate;
+
+  @UI: {
+  lineItem: [ { position: 41, importance: #MEDIUM } ],
+  identification: [ { position: 41 } ] }
+  EndDate;
+
+  @UI: {
+  identification: [ { position: 42 } ] }
+  BookingFee;
+  
+  @UI: {
+  lineItem: [ { position: 43, importance: #MEDIUM } ],
+  identification: [ { position: 43, label: 'Total Price' } ] }
+  TotalPrice;
+  
+  @Consumption.valueHelpDefinition: [{entity: {name: 'I_Currency', element: 'Currency' }}]
+  CurrencyCode;
+  
+  @UI: {
+  identification:[ { position: 46 } ] }
+  Description;
+  @UI: {
+  lineItem: [ { position: 50, importance: #HIGH },
+              { type: #FOR_ACTION, dataAction: 'CreateTravelWithCopy', label: 'Create Travel by Template' } ],
+                identification: [ { position: 45, label: 'Status [O(Open)|A(Accepted)|X(Canceled)]' } ] }
+  OverallStatus;
+  
+  @UI.hidden: true
+  LastChangedAt;
+    @UI: {
+  lineItem: [ { position: 50, importance: #HIGH }  ] }
+  @EndUserText.label: 'Discount 10%'
+DiscountPrice;
+                
+}
